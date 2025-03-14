@@ -1,9 +1,10 @@
 import React from "react";
+import { Outlet } from "react-router-dom";
 
 const NavBar = () => {
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm  px-6">
+      <div className="navbar bg-base-300 shadow-sm  px-6">
         <div className="flex-1">
           <a className="btn btn-ghost text-xl">daisyUI</a>
         </div>

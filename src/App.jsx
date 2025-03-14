@@ -1,13 +1,20 @@
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./NavBar";
+import Layout from "./Layout";
+import Profile from "./Profile";
+import Login from "./Login";
 
 function App() {
   return (
     <>
-      <NavBar />
-      <h1 className="text-3xl bg-red-500 font-bold underline">
-        Dev Connect Project
-      </h1>
-      <button class="btn btn-primary">Button</button>
+      <BrowserRouter basename="/">
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/profile" element={<Profile />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
