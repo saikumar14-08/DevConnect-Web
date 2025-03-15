@@ -30,7 +30,8 @@ const Login = () => {
       dispatch(addUser(loggedUser));
       navigate("/feed");
     } catch (error) {
-      setErrorMsg(error.response?.data || "An error occurred during login");
+      const er = error?.response?.data;
+      setErrorMsg("Error: Invalid Credentials");
     }
   };
 
@@ -95,6 +96,7 @@ const Login = () => {
               title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
             />
           </label>
+          {errorMsg && <p className="text-red-950">{errorMsg}</p>}
           <p className="validator-hint hidden">
             Must be more than 8 characters, including
             <br />

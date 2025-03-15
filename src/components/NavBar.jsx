@@ -1,15 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../utils/userSlice";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import { BASE_URL } from "../utils/constants";
+import axios from "axios";
 const NavBar = () => {
   const user = useSelector((store) => store?.add_user);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const logout = () => {
-    console.log("User cicked logout: ", user);
-
-    dispatch(removeUser());
+  const logout = async () => {
+    try {
+      const logOutUser = await axios.post(
+        BASE_URL + "/logout",
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch(removeUser());
+      navigate("/login");
+      console.log("User loggedout successfully", logOutUser);
+    } catch (e) {
+      console.log(e.message);
+    }
   };
   return (
     <div className="navbar bg-base-100 shadow-sm px-8">
