@@ -1,15 +1,22 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeUser } from "../utils/userSlice";
+import { addUser, removeUser } from "../utils/userSlice";
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
   const user = useSelector((store) => store?.add_user);
   const dispatch = useDispatch();
-  const logout = () => dispatch(removeUser());
+  const logout = () => {
+    console.log("User cicked logout: ", user);
+
+    dispatch(removeUser());
+  };
   return (
     <div className="navbar bg-base-100 shadow-sm px-8">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <Link to="/" className="btn btn-ghost text-xl">
+          Dev Connect
+        </Link>
       </div>
       <div className="flex gap-2">
         {user && (
@@ -25,20 +32,16 @@ const NavBar = () => {
             </div>
             <ul
               tabIndex={0}
-              className="fixed menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-36 p-2 shadow"
+              className="fixed menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-36 p-4 shadow"
             >
-              <li>
-                <a>Hi, {user.firstName}</a>
-              </li>
-              <li>
-                <a className="justify-between">Profile</a>
-              </li>
-              <li>
-                <a>Settings</a>
-              </li>
-              <li onClick={logout}>
-                <a>Logout</a>
-              </li>
+              Hi, {user.firstName}
+              <Link to={"/profile"}>
+                <li className="justify-between my-2">Profile</li>
+              </Link>
+              <li>Settings</li>
+              <Link to="/" onClick={logout}>
+                <li className="my-2">Logout</li>
+              </Link>
             </ul>
           </div>
         )}
