@@ -19,7 +19,6 @@ const NavBar = () => {
       );
       dispatch(removeUser());
       navigate("/login");
-      console.log("User loggedout successfully", logOutUser);
     } catch (e) {
       console.log(e.message);
     }

@@ -15,7 +15,6 @@ const Layout = () => {
       const user = await axios.get(BASE_URL + "/profile", {
         withCredentials: true,
       });
-      console.log(user);
       dispatch(addUser(user.data));
     } catch (e) {
       navigate("/login");
