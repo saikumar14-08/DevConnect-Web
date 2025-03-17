@@ -85,7 +85,7 @@ const Login = () => {
               </g>
             </svg>
             <input
-              type="password"
+              type="text"
               required
               placeholder="Password"
               minLength="8"

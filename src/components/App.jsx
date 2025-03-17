@@ -3,10 +3,10 @@ import Layout from "./Layout";
 import Profile from "./Profile";
 import Login from "./Login";
 import Feed from "./Feed";
-import { useSelector } from "react-redux";
+import Connections from "./Connections";
+import Requests from "./Requests";
 
 function App() {
-  // const userInfo = useSelector((store) => store?.add_user);
   return (
     <>
       <BrowserRouter basename="/">
@@ -15,6 +15,8 @@ function App() {
             <Route path="/feed" element={<Feed />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/connections" element={<Connections />} />
+            <Route path="/requests" element={<Requests />} />
           </Route>
         </Routes>
       </BrowserRouter>

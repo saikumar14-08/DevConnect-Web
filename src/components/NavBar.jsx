@@ -47,12 +47,11 @@ const NavBar = () => {
               className="fixed menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-36 p-4 shadow"
             >
               Hi, {user.firstName}
-              <Link to={"/profile"}>
-                <li className="justify-between my-2">Profile</li>
-              </Link>
-              <li>Settings</li>
+              <Link to="/profile">Profile</Link>
+              <Link to="/connections">Connections</Link>
+              <Link to="/requests">Requests</Link>
               <Link to="/" onClick={logout}>
-                <li className="my-2">Logout</li>
+                Logout
               </Link>
             </ul>
           </div>
