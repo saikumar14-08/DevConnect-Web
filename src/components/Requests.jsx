@@ -54,18 +54,15 @@ const Requests = () => {
   return (
     <>
       <div>
-        {Array.isArray(requestsStore) ? (
-          requestsStore?.map((req) => {
-            const userId =
-              typeof req.fromUserId === "string"
-                ? req.fromUserId
-                : req.fromUserId;
+        {Array.isArray(requestsStore) && requestsStore.length > 0 ? (
+          requestsStore.map((req) => {
+            const userInfo = req.fromUserId;
 
             return (
               <ConnReqCard
                 key={req._id}
                 pageType="requests"
-                data={userId}
+                data={userInfo}
                 onIgnore={() => handleIgnore(req)}
                 onInterested={() => handleInterested(req)}
               />
@@ -73,7 +70,7 @@ const Requests = () => {
           })
         ) : (
           <h2 className="text-xl font-semibold flex justify-center mt-4">
-            {requestsStore || "No connection requests"}
+            No connection requests
           </h2>
         )}
       </div>
