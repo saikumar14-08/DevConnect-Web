@@ -6,17 +6,40 @@ import { useNavigate } from "react-router-dom";
 import { BASE_URL } from "../utils/constants";
 
 const Login = () => {
-  const [emailId, setEmailId] = useState("tbot@gmail.com");
-  const [password, setPassword] = useState("Tbot@1999");
-  const [userData, setuserData] = useState({});
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [emailId, setEmailId] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
+  const [isLogin, setIsLogin] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const userinfo = useSelector((store) => store?.add_user);
 
-  const loginHandle = async (e) => {
-    e.preventDefault();
+  const handleSignUp = async () => {
+    try {
+      let res = await axios.post(
+        BASE_URL + "/signup",
+        {
+          firstName,
+          lastName,
+          age,
+          emailId,
+          password,
+        },
+        { withCredentials: true }
+      );
+      const newUser = res?.data;
+      console.log(res);
+
+      dispatch(addUser(newUser));
+      navigate("/profile");
+    } catch (error) {
+      setErrorMsg("Error: Signup failed");
+    }
+  };
+  const loginHandle = async () => {
     try {
       let res = await axios.post(
         BASE_URL + "/login",
@@ -26,7 +49,7 @@ const Login = () => {
         },
         { withCredentials: true }
       );
-      const loggedUser = res.data;
+      const loggedUser = res?.data;
       dispatch(addUser(loggedUser));
       navigate("/feed");
     } catch (error) {
@@ -39,7 +62,38 @@ const Login = () => {
     <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center ">
       <div className="card card-border bg-base-300 w-96 flex justify-center">
         <div className="card-body p-4">
-          <h2 className="card-title">Login</h2>
+          <h2 className="card-title">{isLogin ? "Login" : "Sign up"}</h2>
+          {!isLogin && (
+            <>
+              <label className="input mb-3">
+                <input
+                  type="text"
+                  placeholder="Enter your first name"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  required
+                />
+              </label>
+              <label className="input mb-3">
+                <input
+                  type="text"
+                  placeholder="Enter your last name"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  required
+                />
+              </label>
+              <label className="input mb-3">
+                <input
+                  type="number"
+                  placeholder="Enter your age"
+                  value={age}
+                  onChange={(e) => setAge(e.target.value)}
+                  required
+                />
+              </label>
+            </>
+          )}
           <label className="input validator mb-3">
             <svg
               className="h-[1em] opacity-50"
@@ -107,12 +161,37 @@ const Login = () => {
             At least one uppercase letter
           </p>
           <div className="card-actions justify-center">
-            <button className="btn btn-primary" onClick={loginHandle}>
-              Login
+            <button
+              className="btn btn-primary"
+              onClick={isLogin ? loginHandle : handleSignUp}
+            >
+              {isLogin ? "Login" : "Sign up"}
             </button>
           </div>
 
-          <div className="justify-center">New here? Please Sign up!</div>
+          <div className="justify-center">
+            {isLogin ? (
+              <>
+                Don't have an account?{" "}
+                <span
+                  className="text-blue-500 cursor-pointer"
+                  onClick={() => setIsLogin(!isLogin)}
+                >
+                  Sign up here
+                </span>
+              </>
+            ) : (
+              <>
+                Already have an account?{" "}
+                <span
+                  className="text-blue-500 cursor-pointer"
+                  onClick={() => setIsLogin(!isLogin)}
+                >
+                  Login here
+                </span>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

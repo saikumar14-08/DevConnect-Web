@@ -55,7 +55,7 @@ const EditProfile = ({ user }) => {
     }
   }, [user]);
   return (
-    <div className="flex justify-center mx-8">
+    <div className="flex mx-8">
       {toast && (
         <div className="toast toast-top toast-center z-10">
           <div className="alert alert-info">
