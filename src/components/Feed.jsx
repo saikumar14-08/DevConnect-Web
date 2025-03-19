@@ -24,11 +24,20 @@ const Feed = () => {
     feedAPI();
   }, []);
 
+  if (!feedAPIData) return;
+  if (feedAPIData.length <= 0) {
+    return (
+      <div className="text-3xl font-bold my-10 flex justify-center">
+        No users found.
+      </div>
+    );
+  }
   return (
-    <div>
-      {feedAPIData?.map((data) => (
+    <div className="my-10">
+      {/* {feedAPIData?.map((data) => (
         <UserCard key={data._id} data={data} />
-      ))}
+      ))} */}
+      <UserCard data={feedAPIData?.[0]} />
     </div>
   );
 };
