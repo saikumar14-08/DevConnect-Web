@@ -34,9 +34,6 @@ const Feed = () => {
   }
   return (
     <div className="my-10">
-      {/* {feedAPIData?.map((data) => (
-        <UserCard key={data._id} data={data} />
-      ))} */}
       <UserCard data={feedAPIData?.[0]} />
     </div>
   );

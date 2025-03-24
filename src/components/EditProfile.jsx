@@ -6,13 +6,6 @@ import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
 
 const EditProfile = ({ user }) => {
-  // const user = useSelector((store) => store?.add_user);
-  // const [firstName, setFirstName] = useState(user?.firstName);
-  // const [lastName, setLastName] = useState(user?.lastName);
-  // const [age, setAge] = useState(user?.age || "");
-  // const [about, setAbout] = useState(user?.about || "");
-  // const [gender, setGender] = useState(user?.gender || "");
-  // const [photoUrl, setPhotoUrl] = useState(user?.photoUrl);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [age, setAge] = useState("");
@@ -21,14 +14,27 @@ const EditProfile = ({ user }) => {
   const [photoUrl, setPhotoUrl] = useState("");
   const [error, setError] = useState("");
   const [toast, setToast] = useState(false);
+  const [skills, setSkills] = useState([]);
+  const [newSkill, setNewSkill] = useState("");
   const dispatch = useDispatch();
+
+  const handleAddSkill = () => {
+    if (newSkill.trim() && !skills.includes(newSkill)) {
+      setSkills([...skills, newSkill]);
+      setNewSkill("");
+    }
+  };
+
+  const handleRemoveSkill = (skillToRemove) => {
+    setSkills(skills.filter((skill) => skill !== skillToRemove));
+  };
 
   const saveProfile = async () => {
     setError("");
     try {
       const res = await axios.patch(
         `${BASE_URL}/profile/edit`,
-        { firstName, lastName, age, about, gender, photoUrl },
+        { firstName, lastName, age, about, gender, photoUrl, skills },
         {
           withCredentials: true,
         }
@@ -39,7 +45,6 @@ const EditProfile = ({ user }) => {
         setToast(false);
       }, 3000);
     } catch (e) {
-      console.log(e.response);
       setError(e.response.data);
     }
   };
@@ -52,6 +57,7 @@ const EditProfile = ({ user }) => {
       setAbout(user.about || "");
       setGender(user.gender || "");
       setPhotoUrl(user.photoUrl || "");
+      setSkills(user?.skills || []);
     }
   }, [user]);
   return (
@@ -119,30 +125,6 @@ const EditProfile = ({ user }) => {
 
           <label className="form-control w-full max-w-xs m-3">
             <div className="label">
-              <span className="label-text ,y-2">About:</span>
-            </div>
-            <input
-              type="text"
-              value={about}
-              className="input input-bordered w-full max-w-xs"
-              onChange={(e) => setAbout(e.target.value)}
-            />
-          </label>
-
-          {/* <label className="form-control w-full max-w-xs m-3">
-            <div className="label">
-              <span className="label-text ,y-2">Gender: </span>
-            </div>
-            <input
-              type="text"
-              value={gender}
-              className="input input-bordered w-full max-w-xs"
-              onChange={(e) => setGender(e.target.value)}
-            />
-          </label> */}
-
-          <label className="form-control w-full max-w-xs m-3">
-            <div className="label">
               <span className="label-text my-2">Gender:</span>
             </div>
             <div className="dropdown">
@@ -162,17 +144,50 @@ const EditProfile = ({ user }) => {
               </ul>
             </div>
           </label>
-          {/* <label className="form-control w-full max-w-xs m-3">
+
+          <label className="form-control w-full max-w-xs m-3">
             <div className="label">
-              <span className="label-text ,y-2">Skills: </span>
+              <span className="label-text ,y-2">About:</span>
             </div>
-            <input
+            <textarea
               type="text"
-              value={skills}
-              className="input input-bordered w-full max-w-xs"
-              onChange={(e) => setSkills(e.target.value)}
+              value={about}
+              className="textarea"
+              placeholder="bio"
+              onChange={(e) => setAbout(e.target.value)}
             />
-          </label> */}
+          </label>
+
+          {/* Skills Section */}
+          <label className="form-control w-full max-w-xs m-3">
+            <div className="label">
+              <span className="label-text my-2">Skills:</span>
+            </div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                value={newSkill}
+                className="input input-bordered w-full max-w-xs"
+                placeholder="Add a skill..."
+                onChange={(e) => setNewSkill(e.target.value)}
+              />
+              <button className="btn btn-primary" onClick={handleAddSkill}>
+                Add
+              </button>
+            </div>
+            {/* Display Skills */}
+            <div className="mt-3 flex flex-wrap gap-2">
+              {skills.map((skill, index) => (
+                <span
+                  key={index}
+                  className="badge badge-secondary flex items-center gap-2 p-2 cursor-pointer"
+                  onClick={() => handleRemoveSkill(skill)}
+                >
+                  {skill} ✖
+                </span>
+              ))}
+            </div>
+          </label>
           <p className="text-red-500">{error}</p>
           <div className="card-actions justify-center m-2">
             <button className="btn btn-primary" onClick={saveProfile}>
@@ -183,7 +198,7 @@ const EditProfile = ({ user }) => {
       </div>
       <div>
         <UserCard
-          data={{ firstName, lastName, photoUrl, age, gender, about }}
+          data={{ firstName, lastName, photoUrl, age, gender, about, skills }}
         />
       </div>
     </div>

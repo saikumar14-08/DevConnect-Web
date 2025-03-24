@@ -38,7 +38,7 @@ const ConnReqCard = ({ pageType, data, onIgnore, onInterested }) => {
         {pageType === "requests" && (
           <div className="mt-4 flex gap-3">
             <button className="btn btn-primary mr-4" onClick={onIgnore}>
-              Igonre
+              Ignore
             </button>
             <button className="btn btn-secondary" onClick={onInterested}>
               Interested

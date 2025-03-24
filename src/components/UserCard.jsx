@@ -35,13 +35,20 @@ const UserCard = ({ data }) => {
           <h2 className="card-title">{firstName + " " + lastName}</h2>
           {age && <div>Age: {age}</div>}
           {gender && <div>Gender: {gender}</div>}
-          {/* {skills.length > 0 && (
-            <div>
-              {skills.map((item) => (
-                <li key={item}>{item}</li>
+          {skills.length > 0 ? (
+            <div className="flex flex-wrap gap-2">
+              {skills.map((skill, index) => (
+                <div
+                  key={index}
+                  className="px-3 py-1 text-xs bg-gray-800 border border-neon rounded-md"
+                >
+                  {skill}
+                </div>
               ))}
             </div>
-          )} */}
+          ) : (
+            <span className="text-gray-500">No skills added</span>
+          )}
 
           {about && <div>About: {about}</div>}
           <div className="card-actions justify-center py-2">
@@ -49,7 +56,7 @@ const UserCard = ({ data }) => {
               className="btn btn-primary mr-4"
               onClick={() => handleRequest("ignored", _id)}
             >
-              Igonre
+              Ignore
             </button>
             <button
               className="btn btn-secondary"

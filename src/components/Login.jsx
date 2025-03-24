@@ -31,8 +31,6 @@ const Login = () => {
         { withCredentials: true }
       );
       const newUser = res?.data;
-      console.log(res);
-
       dispatch(addUser(newUser));
       navigate("/profile");
     } catch (error) {
@@ -54,7 +52,9 @@ const Login = () => {
       navigate("/feed");
     } catch (error) {
       const er = error?.response?.data;
-      setErrorMsg("Error: Invalid Credentials");
+      console.log(er);
+
+      setErrorMsg(er || "Error: Invalid Credentials");
     }
   };
 
@@ -139,7 +139,7 @@ const Login = () => {
               </g>
             </svg>
             <input
-              type="text"
+              type="password"
               required
               placeholder="Password"
               minLength="8"
@@ -150,7 +150,7 @@ const Login = () => {
               title="Must be more than 8 characters, including number, lowercase letter, uppercase letter"
             />
           </label>
-          {errorMsg && <p className="text-red-950">{errorMsg}</p>}
+          {errorMsg && <p className="text-red-600">{errorMsg}</p>}
           <p className="validator-hint hidden">
             Must be more than 8 characters, including
             <br />
