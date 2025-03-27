@@ -1,2 +1,2 @@
-export const BASE_URL = "/api"; // For Production
-// export const BASE_URL = "http://localhost:3000"; // For Development
+export const BASE_URL =
+  location.hostname === "localhost" ? "http://localhost:3000" : "/api";
