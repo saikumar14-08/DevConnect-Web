@@ -17,6 +17,7 @@ function App() {
       <BrowserRouter basename="/">
         <Routes>
           <Route path="/" element={<Layout />}>
+            <Route index element={<Navigate to="/feed" replace />} />
             <Route path="/feed" element={<Feed />} />
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
