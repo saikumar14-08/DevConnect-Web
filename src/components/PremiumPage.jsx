@@ -9,10 +9,7 @@ const PremiumPage = () => {
       { choice },
       { withCredentials: true }
     );
-    console.log(pay);
-
     const { amount, currency, notes, orderId, key_id } = await pay?.data;
-    console.log(pay);
     const options = {
       key: key_id,
       amount,
