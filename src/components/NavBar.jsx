@@ -55,6 +55,7 @@ const NavBar = () => {
               className="fixed menu menu-sm dropdown-content bg-base-200 rounded-box z-1 mt-3 w-36 p-4 shadow"
             >
               <Link to="/profile">Profile</Link>
+              <Link to="/premium">Premium</Link>
               <Link to="/feed">Feed</Link>
               <Link to="/connections">Connections</Link>
               <Link to="/requests">Requests</Link>

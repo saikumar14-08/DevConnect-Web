@@ -10,6 +10,7 @@ import TermsAndConditions from "./FooterLinks/TermsAndConditions";
 import CancellationAndRefund from "./FooterLinks/CancellationAndRefund";
 import Ship from "./FooterLinks/Ship";
 import ContactUs from "./FooterLinks/ContactUs";
+import PremiumPage from "./PremiumPage";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             <Route path="/cancellation" element={<CancellationAndRefund />} />
             <Route path="/delivery" element={<Ship />} />
             <Route path="/contact" element={<ContactUs />} />
+            <Route path="/premium" element={<PremiumPage />} />
           </Route>
         </Routes>
       </BrowserRouter>
