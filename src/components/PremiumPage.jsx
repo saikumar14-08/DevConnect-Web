@@ -9,7 +9,7 @@ const PremiumPage = () => {
       { choice },
       { withCredentials: true }
     );
-    const { amount, currency, notes, order_id, key_id } = await pay?.data;
+    const { amount, currency, notes, orderId, key_id } = await pay?.data;
     console.log(pay.data);
 
     const options = {
@@ -18,7 +18,7 @@ const PremiumPage = () => {
       currency,
       name: "Dev Connect",
       description: `You're purchasing`,
-      order_id,
+      order_id: orderId,
       prefill: {
         name: notes?.firstName + " " + notes?.lastName,
         email: notes?.email,
