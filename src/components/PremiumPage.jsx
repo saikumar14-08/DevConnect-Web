@@ -10,6 +10,8 @@ const PremiumPage = () => {
       { withCredentials: true }
     );
     const { amount, currency, notes, order_id, key_id } = await pay?.data;
+    console.log(pay.data);
+
     const options = {
       key: key_id,
       amount,
