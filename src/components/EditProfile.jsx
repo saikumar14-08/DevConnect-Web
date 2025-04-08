@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { BASE_URL } from "../utils/constants";
 import { addUser } from "../utils/userSlice";
+import { Link } from "react-router-dom";
 
 const EditProfile = ({ user }) => {
   const [firstName, setFirstName] = useState("");
@@ -200,6 +201,11 @@ const EditProfile = ({ user }) => {
         <UserCard
           data={{ firstName, lastName, photoUrl, age, gender, about, skills }}
         />
+        <div className="flex justify-center m-10">
+          <Link to="/feed">
+            <button className="btn btn-primary">Go to Feed</button>
+          </Link>
+        </div>
       </div>
     </div>
   );

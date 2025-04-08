@@ -5,16 +5,25 @@ import { useSelector } from "react-redux";
 
 const PremiumPage = () => {
   const [isPremium, setIsPremium] = useState(false);
+
+  useEffect(() => {
+    const checkPrem = async () => {
+      try {
+        await verifyPaymentUser();
+      } catch (e) {
+        console.log(e.message);
+      }
+    };
+    checkPrem();
+  }, []);
   const verifyPaymentUser = async () => {
-    const res = await axios.get(BASE_URL + "/premium/verfiy", {
+    const res = await axios.get(BASE_URL + "/premium/verify", {
       withCredentials: true,
     });
     if (res?.data?.isPremium) {
       setIsPremium(true);
     }
   };
-
-  useEffect(() => verifyPaymentUser(), []);
 
   const handleSubscribe = async (choice) => {
     const pay = await axios.post(
@@ -37,7 +46,9 @@ const PremiumPage = () => {
       theme: {
         color: "#F37254",
       },
-      handler: verifyPaymentUser(res),
+      handler: function () {
+        verifyPaymentUser(pay);
+      },
     };
 
     const rzp = new window.Razorpay(options);
@@ -45,7 +56,7 @@ const PremiumPage = () => {
   };
 
   const firstName = useSelector((store) => store?.add_user?.firstName);
-  console.log(isPremium);
+  console.log("Premium: ", isPremium);
 
   return isPremium ? (
     <div className="text-3xl justify-center p-4">
