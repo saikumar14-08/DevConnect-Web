@@ -1,6 +1,6 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeRequests } from "../utils/requestsSlice";
+import { Link } from "react-router-dom";
+import Chat from "./Chat";
 
 const ConnReqCard = ({ pageType, data, onIgnore, onInterested }) => {
   return (
@@ -33,6 +33,13 @@ const ConnReqCard = ({ pageType, data, onIgnore, onInterested }) => {
             </span>
           ))}
         </div>
+        {pageType == "connections" && (
+          <div>
+            <Link to={`/chat/${data._id}`} state={{ userData: data }}>
+              <button className="btn btn-primary"> Chat </button>
+            </Link>
+          </div>
+        )}
 
         {/* Buttons (Only for Requests Page) */}
         {pageType === "requests" && (
