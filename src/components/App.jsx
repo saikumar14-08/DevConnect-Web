@@ -12,7 +12,6 @@ import Ship from "./FooterLinks/Ship";
 import ContactUs from "./FooterLinks/ContactUs";
 import PremiumPage from "./PremiumPage";
 import Chat from "./Chat";
-import PrivateRoute from "./PrivateRoute";
 
 function App() {
   return (
@@ -32,14 +31,7 @@ function App() {
             <Route path="/delivery" element={<Ship />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/premium" element={<PremiumPage />} />
-            <Route
-              path="/chat/:toUserId"
-              element={
-                <PrivateRoute>
-                  <Chat />
-                </PrivateRoute>
-              }
-            />
+            <Route path="/chat/:toUserId" element={<Chat />} />
           </Route>
         </Routes>
       </BrowserRouter>
