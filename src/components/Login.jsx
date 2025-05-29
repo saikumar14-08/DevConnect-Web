@@ -17,7 +17,8 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSignUp = async () => {
+  const handleSignUp = async (e) => {
+    e.preventDefault();
     try {
       let res = await axios.post(
         BASE_URL + "/signup",
@@ -37,7 +38,8 @@ const Login = () => {
       setErrorMsg("Error: Signup failed");
     }
   };
-  const loginHandle = async () => {
+  const loginHandle = async (e) => {
+    e.preventDefault();
     try {
       let res = await axios.post(
         BASE_URL + "/login",
@@ -52,14 +54,12 @@ const Login = () => {
       navigate("/feed");
     } catch (error) {
       const er = error?.response?.data;
-      console.log(er);
-
       setErrorMsg(er || "Error: Invalid Credentials");
     }
   };
 
   return (
-    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center ">
+    <form className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center ">
       <div className="card card-border bg-base-300 w-96 flex justify-center">
         <div className="card-body p-4">
           <h2 className="card-title">{isLogin ? "Login" : "Sign up"}</h2>
@@ -163,7 +163,7 @@ const Login = () => {
           <div className="card-actions justify-center">
             <button
               className="btn btn-primary"
-              onClick={isLogin ? loginHandle : handleSignUp}
+              onClick={(e) => isLogin ? loginHandle(e) : handleSignUp(e)}
             >
               {isLogin ? "Login" : "Sign up"}
             </button>
@@ -194,7 +194,7 @@ const Login = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
